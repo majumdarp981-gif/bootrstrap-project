@@ -3,508 +3,454 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CarRent - Premium Car Rental Service</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #1a5f7a;
-            --secondary-color: #f8f9fa;
-            --accent-color: #ff6b35;
-            --dark-color: #2c3e50;
-            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-            --gradient-5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-        }
-        
-        body { 
-            font-family: 'Poppins', sans-serif; 
-            line-height: 1.6;
-        }
-        
-        /* Navbar */
-        .navbar {
-            background: rgba(0,0,0,0.95) !important;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-        
-        .navbar.scrolled {
-            background: rgba(0,0,0,0.98) !important;
-        }
-        
-        /* Hero Section */
-        .hero-section { 
-            background: var(--gradient-1), 
-                        radial-gradient(circle at 30% 70%, rgba(255,255,255,0.1) 0%, transparent 50%);
-            color: white;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            animation: float 20s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-        
-        .hero-car-shape {
-            position: absolute;
-            top: 20%;
-            right: 10%;
-            width: 300px;
-            height: 200px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50% 20% 50% 20%;
-            clip-path: polygon(0% 20%, 100% 0%, 100% 80%, 0% 100%);
-            animation: drive 6s ease-in-out infinite;
-        }
-        
-        @keyframes drive {
-            0%, 100% { transform: translateX(0) rotate(0deg); }
-            50% { transform: translateX(20px) rotate(5deg); }
-        }
-        
-        .hero-section .btn-primary { 
-            background: var(--accent-color); 
-            border: none;
-            padding: 12px 30px;
-            font-weight: 600;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-        }
-        
-        .hero-section .btn-primary:hover {
-            background: #e55a2b;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(255,107,53,0.4);
-        }
-        
-        /* Cards */
-        .card-hover:hover { 
-            transform: translateY(-10px); 
-            transition: all 0.3s ease;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important;
-        }
-        
-        .feature-icon { 
-            font-size: 3.5rem; 
-            color: var(--accent-color); 
-            margin-bottom: 1.5rem;
-        }
-        
-        /* Car Cards */
-        .car-card {
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.4s ease;
-        }
-        
-        .car-card .car-image {
-            height: 250px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .car-image::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--gradient-1);
-            opacity: 0.9;
-        }
-        
-        .car-sedan::before { background: var(--gradient-2); }
-        .car-suv::before { background: var(--gradient-3); }
-        .car-luxury::before { background: var(--gradient-4); }
-        
-        .car-icon {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 4rem;
-            color: white;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-            z-index: 2;
-        }
-        
-        /* Stats */
-        .stat-number {
-            font-size: 3.5rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, #fff, rgba(255,255,255,0.8));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .hero-section {
-                min-height: 90vh;
-                text-align: center;
-                padding-top: 120px;
-            }
-            
-            .hero-section .row {
-                flex-direction: column-reverse;
-            }
-            
-            .hero-car-shape {
-                width: 200px;
-                height: 120px;
-                top: 60%;
-                right: 5%;
-            }
-            
-            .feature-icon {
-                font-size: 2.5rem;
-            }
-            
-            .car-image {
-                height: 200px;
-            }
-            
-            .car-icon {
-                font-size: 3rem;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .hero-section h1 {
-                font-size: 2.2rem;
-            }
-            
-            .stat-number {
-                font-size: 2.5rem;
-            }
-        }
-        
-        /* Smooth scroll */
-        html {
-            scroll-behavior: smooth;
-        }
-    </style>
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </head>
 <body>
-
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-    <div class="container">
-        <a class="navbar-brand fw-bold fs-3" href="#">
-            <i class="fas fa-car-side me-2"></i>CarRent
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link px-3" href="#home">Home</a></li>
-                <li class="nav-item"><a class="nav-link px-3" href="#services">Services</a></li>
-                <li class="nav-item"><a class="nav-link px-3" href="#cars">Cars</a></li>
-                <li class="nav-item"><a class="nav-link px-3" href="#about">About</a></li>
-                <li class="nav-item"><a class="nav-link px-3" href="#contact">Contact</a></li>
-            </ul>
-        </div>
+    <nav class="navbar navbar-expand-lg bg-black">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html"><img src="images/logo (6).png" alt="logo"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+        <li class="nav-item ">
+          <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">About Us</a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link text-white" href="#" >
+          Vehicle
+          </a>
+    
+        </li>
+      <li class="nav-item">
+          <a class="nav-link text-white " href="#" >
+          Vehicle
+          </a>
+    
+        </li>
+          <li class="nav-item">
+          <a class="nav-link text-white " href="#" >
+          Car Details
+          </a>
+    
+        </li>
+          <li class="nav-item">
+          <a class="nav-link text-white" href="#" >
+          Contact Us
+          </a>
+    
+        </li>
+      </ul>
+      <a href="#" class="d-inline-block px-3 py-3 bg-white text-decoration-none text-black rounded-pill">Create Account</a>
     </div>
+  </div>
 </nav>
-
-<!-- Hero Section -->
-<section id="home" class="hero-section">
-    <div class="hero-car-shape"></div>
-    <div class="container position-relative">
-        <div class="row align-items-center gy-4">
-            <div class="col-lg-6">
-                <h1 class="display-3 fw-bold mb-4 animate__animated animate__fadeIn">Premium Car Rental</h1>
-                <p class="lead fs-4 mb-4 animate__animated animate__fadeIn animate__delay-1s">Rent luxury cars at affordable prices. Best car rental service in your city with 24/7 support and premium vehicles.</p>
-                
-                <!-- Search Form -->
-                <div class="row g-3 mb-4 animate__animated animate__fadeIn animate__delay-2s">
-                    <div class="col-12 col-md-6">
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                            <input type="text" class="form-control" placeholder="Pick-up location" value="Mumbai, India">
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-3">
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                            <input type="date" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-3">
-                        <button class="btn btn-primary w-100">
-                            <i class="fas fa-search me-2"></i>Search Cars
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="d-flex flex-wrap gap-3 animate__animated animate__fadeIn animate__delay-3s">
-                    <a href="#cars" class="btn btn-primary btn-lg">
-                        <i class="fas fa-car me-2"></i>Book Now
-                    </a>
-                    <a href="#about" class="btn btn-outline-light btn-lg">
-                        Learn More <i class="fas fa-arrow-right ms-2"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-6 text-center">
-                <div class="hero-car-icon">
-                    <i class="fas fa-car-side fa-6x text-white" style="text-shadow: 0 4px 20px rgba(0,0,0,0.3);"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Features Section -->
-<section id="services" class="py-5 bg-light">
+<section class="banner" >
     <div class="container">
-        <div class="row text-center mb-5">
-            <div class="col-lg-8 mx-auto">
-                <h2 class="display-5 fw-bold mb-3">Why Choose CarRent?</h2>
-                <p class="lead text-muted">Reliable service with premium vehicles, excellent customer support, and unbeatable prices.</p>
-            </div>
-        </div>
-        <div class="row g-4">
-            <div class="col-lg-4 col-md-6">
-                <div class="card h-100 card-hover border-0 shadow-sm bg-white">
-                    <div class="card-body text-center p-5">
-                        <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
-                        <h5 class="card-title fw-bold mb-3">Safe & Secure</h5>
-                        <p class="card-text text-muted">All vehicles regularly maintained and fully insured. GPS tracking available.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="card h-100 card-hover border-0 shadow-sm bg-white">
-                    <div class="card-body text-center p-5">
-                        <div class="feature-icon"><i class="fas fa-headset"></i></div>
-                        <h5 class="card-title fw-bold mb-3">24/7 Support</h5>
-                        <p class="card-text text-muted">Round-the-clock customer support via phone, chat, and email.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="card h-100 card-hover border-0 shadow-sm bg-white">
-                    <div class="card-body text-center p-5">
-                        <div class="feature-icon"><i class="fas fa-dollar-sign"></i></div>
-                        <h5 class="card-title fw-bold mb-3">Best Prices</h5>
-                        <p class="card-text text-muted">No hidden charges. Transparent pricing with flexible rental options.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="div banner-content ">
+        <p class="text-capitalize text-white">built to inspire</p>
+        <h1 class="text-capitalize text-white">ranger black</h1>
+        <p class="text-capitalize text-white">Lorem ipsum dolor sit amet consectetur. Aliquam aliquet enim aliquet nunc placerat dui tristique. Turpis aliquam morbi at suscipit pretium orci. </p>
+        <a href="#" class="d-inline-block px-5 py-3 bg-transparent  border-white border text-decoration-none text-black rounded-pill text-white custom-hover">Discover More</a>
     </div>
+    </div>
+   
 </section>
-
-<!-- Car Categories -->
-<section id="cars" class="py-5 bg-white">
+ <section class="vehicles-section">
     <div class="container">
-        <div class="row text-center mb-5">
-            <div class="col-lg-8 mx-auto">
-                <h2 class="display-5 fw-bold mb-3">Choose Your Perfect Car</h2>
-                <p class="lead text-muted">Select from our wide range of luxury and economy vehicles.</p>
-            </div>
+      <!-- Heading + tabs -->
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
+        <h2 class="vehicles-title mb-3 mb-md-0">Explore All Vehicles</h2>
+        <div class="vehicles-tabs">
+          <a href="#" class="hover">In Stock</a>
+          <a href="#">New Cars</a>
+          <a href="#">Used Cars</a>
         </div>
-        <div class="row g-4">
-            <div class="col-lg-4 col-md-6">
-                <div class="card h-100 car-card border-0 shadow-lg">
-                    <div class="car-image">
-                        <i class="fas fa-car car-icon car-sedan"></i>
-                    </div>
-                    <div class="card-body p-4">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                            <h5 class="card-title fw-bold mb-0">Economy Sedan</h5>
-                            <span class="badge bg-success">Most Popular</span>
-                        </div>
-                        <p class="text-muted mb-3">Perfect for city driving and business trips</p>
-                        <ul class="list-unstyled small text-muted mb-4">
-                            <li><i class="fas fa-check text-success me-2"></i>Auto Transmission</li>
-                            <li><i class="fas fa-check text-success me-2"></i>AC</li>
-                            <li><i class="fas fa-check text-success me-2"></i>GPS</li>
-                        </ul>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h3 class="text-primary mb-0 fw-bold">₹2,500<span class="fs-6 fw-normal">/day</span></h3>
-                            <a href="#" class="btn btn-primary">
-                                <i class="fas fa-calendar-check me-2"></i>Book Now
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="card h-100 car-card border-0 shadow-lg">
-                    <div class="car-image">
-                        <i class="fas fa-suv-pickup car-icon car-suv"></i>
-                    </div>
-                    <div class="card-body p-4">
-                        <h5 class="card-title fw-bold mb-3">SUV</h5>
-                        <p class="text-muted mb-3">Family trips and adventure ready</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h3 class="text-primary mb-0">₹4,200<span class="fs-6 fw-normal">/day</span></h3>
-                            <a href="#" class="btn btn-outline-primary">Book Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="card h-100 car-card border-0 shadow-lg">
-                    <div class="car-image">
-                        <i class="fas fa-car-side car-icon car-luxury"></i>
-                    </div>
-                    <div class="card-body p-4">
-                        <h5 class="card-title fw-bold mb-3">Luxury Sedan</h5>
-                        <p class="text-muted mb-3">Premium travel experience</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h3 class="text-primary mb-0">₹8,500<span class="fs-6 fw-normal">/day</span></h3>
-                            <a href="#" class="btn btn-outline-primary">Book Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+      </div>
 
-<!-- Stats Section -->
-<section id="about" class="py-5 bg-primary text-white">
-    <div class="container">
-        <div class="row text-center g-4">
-            <div class="col-md-3 col-6">
-                <div class="stat-number">10K+</div>
-                <p class="lead mb-0">Happy Customers</p>
+      <!-- Cards row -->
+      <div class="row g-4">
+        <!-- Card 1 -->
+        <div class="col-md-4">
+          <div class="card vehicle-card">
+            <div class="vehicle-image-wrapper">
+              <img src="https://images.pexels.com/photos/1402787/pexels-photo-1402787.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Car 1" />
+              <div class="vehicle-icon">i</div>
             </div>
-            <div class="col-md-3 col-6">
-                <div class="stat-number">500+</div>
-                <p class="lead mb-0">Cars Available</p>
+            <div class="vehicle-gradient">
+              <div class="vehicle-name">C-Class — 2025</div>
+              <p class="vehicle-desc mb-2">
+                4.0 D5 PowerPulse Momentum 5dr AWD, Gas/Electric Estate
+              </p>
+              <div class="vehicle-meta mb-1">
+                <span>50 Miles</span>
+                <span>Petrol</span>
+                <span>Automatic</span>
+              </div>
+              <div class="vehicle-price text-white">$150,000</div>
             </div>
-            <div class="col-md-3 col-6">
-                <div class="stat-number">25+</div>
-                <p class="lead mb-0">Cities Served</p>
-            </div>
-            <div class="col-md-3 col-6">
-                <div class="stat-number">24/7</div>
-                <p class="lead mb-0">Support</p>
-            </div>
+          </div>
         </div>
-    </div>
-</section>
 
-<!-- Footer -->
-<footer id="contact" class="bg-dark text-white py-5">
-    <div class="container">
-        <div class="row g-4">
-            <div class="col-lg-4">
-                <h5 class="fw-bold mb-4">
-                    <i class="fas fa-car-side me-2 text-primary"></i>CarRent
-                </h5>
-                <p class="text-white-50 mb-4">Your trusted partner for premium car rentals across India. Quality service guaranteed.</p>
-                <div class="d-flex gap-3">
-                    <a href="#" class="text-white fs-4"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="text-white fs-4"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="text-white fs-4"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-white fs-4"><i class="fab fa-whatsapp"></i></a>
-                </div>
+        <!-- Card 2 -->
+        <div class="col-md-4">
+          <div class="card vehicle-card">
+            <div class="vehicle-image-wrapper">
+              <img src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Car 2" />
+              <div class="vehicle-icon">i</div>
             </div>
-            <div class="col-lg-2 col-md-6">
-                <h6 class="fw-bold mb-3">Quick Links</h6>
-                <ul class="list-unstyled">
-                    <li><a href="#home" class="text-white-50 text-decoration-none py-1 d-block">Home</a></li>
-                    <li><a href="#services" class="text-white-50 text-decoration-none py-1 d-block">Services</a></li>
-                    <li><a href="#cars" class="text-white-50 text-decoration-none py-1 d-block">Our Cars</a></li>
-                    <li><a href="#about" class="text-white-50 text-decoration-none py-1 d-block">About</a></li>
-                </ul>
+            <div class="vehicle-gradient">
+              <div class="vehicle-name">C-Class — 2025</div>
+              <p class="vehicle-desc mb-2">
+                4.0 D5 PowerPulse Momentum 5dr AWD, Gas/Electric Estate
+              </p>
+              <div class="vehicle-meta mb-1">
+                <span>50 Miles</span>
+                <span>Petrol</span>
+                <span>Automatic</span>
+              </div>
+              <div class="vehicle-price text-white">$150,000</div>
             </div>
-            <div class="col-lg-3 col-md-6">
-                <h6 class="fw-bold mb-3">Contact Info</h6>
-                <div class="mb-3">
-                    <i class="fas fa-phone me-2 text-primary"></i>
-                    <a href="tel:+919876543210" class="text-white-50">+91 98765 43210</a>
-                </div>
-                <div class="mb-3">
-                    <i class="fas fa-envelope me-2 text-primary"></i>
-                    <a href="mailto:info@carrent.com" class="text-white-50">info@carrent.com</a>
-                </div>
-                <div>
-                    <i class="fas fa-map-marker-alt me-2 text-primary"></i>
-                    <span class="text-white-50">Mumbai, India</span>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <h6 class="fw-bold mb-3">Newsletter</h6>
-                <p class="text-white-50 mb-3">Get latest offers and updates</p>
-                <div class="input-group">
-                    <input type="email" class="form-control" placeholder="Your email">
-                    <button class="btn btn-primary">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </div>
-            </div>
+          </div>
         </div>
-        <hr class="my-4 opacity-25">
-        <div class="row align-items-center">
-            <div class="col-md-6">
-                <p class="mb-0 text-white-50">&copy; 2025 CarRent. All rights reserved.</p>
+
+        <!-- Card 3 -->
+        <div class="col-md-4">
+          <div class="card vehicle-card">
+            <div class="vehicle-image-wrapper">
+              <img src="https://images.pexels.com/photos/3764989/pexels-photo-3764989.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Car 3" />
+              <div class="vehicle-icon">i</div>
             </div>
-            <div class="col-md-6 text-md-end">
-                <a href="#" class="text-white-50 me-3 text-decoration-none">Privacy Policy</a>
-                <a href="#" class="text-white-50 text-decoration-none">Terms of Service</a>
+            <div class="vehicle-gradient">
+              <div class="vehicle-name">C-Class — 2025</div>
+              <p class="vehicle-desc mb-2">
+                4.0 D5 PowerPulse Momentum 5dr AWD, Gas/Electric Estate
+              </p>
+              <div class="vehicle-meta mb-1">
+                <span>50 Miles</span>
+                <span>Petrol</span>
+                <span>Automatic</span>
+              </div>
+              <div class="vehicle-price text-white">$150,000</div>
             </div>
+          </div>
         </div>
+      </div>
+
+      <!-- View All Button -->
+      <div class="view-all-wrapper">
+        <button class="btn btn-view-all">
+          View All
+          <span class="btn-view-all-dot"></span>
+        </button>
+      </div>
     </div>
+  </section>
+<section class="shop-section">
+    <div class="container">
+      <!-- Title + Tabs -->
+      <div class="mb-4">
+        <h2 class="shop-title">Shop Box Car Your<br />Way</h2>
+        <div class="shop-tabs">
+          <a href="#" class="active">New Cars For Sale</a>
+          <a href="#">Used Cars For Sale</a>
+          <a href="#">Browse By Type</a>
+          <a href="#">Browse By Brand</a>
+        </div>
+      </div>
+
+      <!-- Columns of links -->
+      <div class="row mt-4">
+        <!-- Col 1 -->
+        <div class="col-6 col-md-3 mb-4">
+          <div class="shop-column-title">New Cars For Sale</div>
+          <div class="shop-list">
+            <a href="#">Ford Cars</a>
+            <a href="#">Honda Cars</a>
+            <a href="#">Hyundai Cars</a>
+            <a href="#">Infiniti Cars</a>
+            <a href="#">Jaguar Cars</a>
+            <a href="#">Jeep Cars</a>
+          </div>
+        </div>
+
+        <!-- Col 2 -->
+        <div class="col-6 col-md-3 mb-4">
+          <div class="shop-column-title">Used Cars For Sale</div>
+          <div class="shop-list">
+            <a href="#">Chrysler Cars</a>
+            <a href="#">Citroen Cars</a>
+            <a href="#">Cupra Cars</a>
+            <a href="#">Dacia Cars</a>
+            <a href="#">DS Cars</a>
+            <a href="#">Fiat Cars</a>
+          </div>
+        </div>
+
+        <!-- Col 3 -->
+        <div class="col-6 col-md-3 mb-4">
+          <div class="shop-column-title">Browse By Type</div>
+          <div class="shop-list">
+            <a href="#">Land Rover Cars</a>
+            <a href="#">Lexus Cars</a>
+            <a href="#">Mercedes‑Benz Cars</a>
+            <a href="#">Mazda Cars</a>
+            <a href="#">MG Cars</a>
+            <a href="#">Kia Cars</a>
+          </div>
+        </div>
+
+        <!-- Col 4 -->
+        <div class="col-6 col-md-3 mb-4">
+          <div class="shop-column-title">Browse By Brand</div>
+          <div class="shop-list">
+            <a href="#">Abarth Cars</a>
+            <a href="#">Alfa Romeo Cars</a>
+            <a href="#">Audi Cars</a>
+            <a href="#">Bentley Cars</a>
+            <a href="#">BMW Cars</a>
+            <a href="#">Chevrolet Cars</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- View All button -->
+      <div class="view-all-wrapper">
+        <button class="btn-view-all">
+          View All
+          <span class="btn-view-all-dot"></span>
+        </button>
+      </div>
+    </div>
+  </section>
+<div class="loan-wrapper">
+    <div class="loan-card">
+      <div class="row g-0">
+        <!-- Left image -->
+        <div class="col-md-5">
+          <img
+            src="images/closeup-shot-person-thinking-buying-new-car-selling-vehicle 1.png"
+            alt="Auto Loan"
+            class="loan-image"
+          />
+        </div>
+
+        <!-- Right content -->
+        <div class="col-md-7">
+          <div class="loan-content">
+            <h3 class="loan-title">Auto Loan Calculator</h3>
+            <p class="loan-text">
+              Use this car payment calculator to estimate monthly payments on your
+              next new or used auto loan.
+            </p>
+
+            <form>
+              <div class="row g-3 mb-2">
+                <div class="col-12 col-md-6">
+                  <input
+                    type="number"
+                    class="form-control"
+                    placeholder="Price ($)"
+                    value="10000"
+                  />
+                </div>
+                <div class="col-12 col-md-6">
+                  <input
+                    type="number"
+                    class="form-control"
+                    placeholder="Price ($)"
+                    value="12000"
+                  />
+                </div>
+              </div>
+
+              <div class="row g-3 mb-3">
+                <div class="col-12 col-md-6">
+                  <input
+                    type="number"
+                    class="form-control"
+                    placeholder="Loan Term (years)"
+                    value="5"
+                  />
+                </div>
+                <div class="col-12 col-md-6">
+                  <input
+                    type="number"
+                    class="form-control"
+                    placeholder="Down Payment"
+                    value="5000"
+                  />
+                </div>
+              </div>
+
+              <button type="button" class="btn btn-calc">
+                Calculate ↗
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+<footer class="pt-4 pb-3" style="background:#021f1a; color:#e5e7eb;">
+  <div class="container">
+
+    <!-- ROW 1: logo/desc + address + email + phone + app -->
+    <div class="row gy-4 align-items-start">
+      <!-- Logo + text + socials -->
+      <div class="col-lg-4 col-md-6">
+        <div class="d-flex align-items-center mb-3">
+          <i class="fa-solid fa-car-side me-2 fs-4"></i>
+          <span class="fw-semibold">CarHut</span>
+        </div>
+        <p class="small text-secondary mb-3">
+          Lorem ipsum dolor sit amet consectetur. Nec magna non egestas in.
+          Enim habitant habitant id nec maecenas.
+        </p>
+        <div class="d-flex gap-2">
+          <a href="#" class="text-secondary"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="text-secondary"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-secondary"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="text-secondary"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+
+      <!-- Address -->
+      <div class="col-lg-2 col-md-6">
+        <h6 class="small fw-semibold mb-1">
+          <i class="fa-solid fa-location-dot me-1 text-success"></i> Address
+        </h6>
+        <p class="small text-secondary mb-0">
+          Oxford Ave, Cary, NC 27511
+        </p>
+      </div>
+
+      <!-- Email -->
+      <div class="col-lg-2 col-md-6">
+        <h6 class="small fw-semibold mb-1">
+          <i class="fa-regular fa-envelope me-1 text-success"></i> Email
+        </h6>
+        <a href="mailto:mail@example.com"
+           class="small text-decoration-none text-light d-block">
+          mail@example.com
+        </a>
+      </div>
+
+      <!-- Phone -->
+      <div class="col-lg-2 col-md-6">
+        <h6 class="small fw-semibold mb-1">
+          <i class="fa-solid fa-phone me-1 text-success"></i> Phone
+        </h6>
+        <a href="tel:+15376476401"
+           class="small text-decoration-none text-light d-block mb-2">
+          +1 537 647 6401
+        </a>
+      </div>
+
+      <!-- Download app (right side on large screens) -->
+      <div class="col-lg-2 d-none d-lg-block text-lg-end">
+        <h6 class="small fw-semibold mb-2">Download App</h6>
+        <div class="d-inline-flex flex-column gap-2">
+          <a href="#" class="bg-white text-dark px-3 py-1 rounded d-flex align-items-center small">
+            <i class="fab fa-apple fa-lg me-2"></i>
+            <div>
+              <div style="font-size:0.6rem;">Download on the</div>
+              <div class="fw-semibold" style="font-size:0.8rem;">App Store</div>
+            </div>
+          </a>
+          <a href="#" class="bg-white text-dark px-3 py-1 rounded d-flex align-items-center small">
+            <i class="fab fa-google-play fa-lg me-2"></i>
+            <div>
+              <div style="font-size:0.6rem;">GET IT ON</div>
+              <div class="fw-semibold" style="font-size:0.8rem;">Google Play</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 2: two Vehicles columns + app on tablet/mobile -->
+    <div class="row gy-4 mt-4">
+      <!-- Vehicles 1 -->
+      <div class="col-md-2 offset-lg-4">
+        <h6 class="small fw-semibold mb-2">Vehicles</h6>
+        <a href="#" class="d-block small text-secondary mb-1">About Us</a>
+        <a href="#" class="d-block small text-secondary mb-1">Contact Us</a>
+        <a href="#" class="d-block small text-secondary mb-1">Gallery</a>
+        <a href="#" class="d-block small text-secondary mb-1">Blog</a>
+        <a href="#" class="d-block small text-secondary mb-1">FAQ</a>
+      </div>
+
+      <!-- Vehicles 2 -->
+      <div class="col-md-2">
+        <h6 class="small fw-semibold mb-2">Vehicles</h6>
+        <a href="#" class="d-block small text-secondary mb-1">About Us</a>
+        <a href="#" class="d-block small text-secondary mb-1">Contact Us</a>
+        <a href="#" class="d-block small text-secondary mb-1">Gallery</a>
+        <a href="#" class="d-block small text-secondary mb-1">Blog</a>
+        <a href="#" class="d-block small text-secondary mb-1">FAQ</a>
+      </div>
+
+      <!-- App download for md and below -->
+      <div class="col-md-4 d-lg-none">
+        <h6 class="small fw-semibold mb-2">Download App</h6>
+        <div class="d-flex flex-column flex-sm-row gap-2">
+          <a href="#" class="bg-white text-dark px-3 py-1 rounded d-flex align-items-center small">
+            <i class="fab fa-apple fa-lg me-2"></i>
+            <div>
+              <div style="font-size:0.6rem;">Download on the</div>
+              <div class="fw-semibold" style="font-size:0.8rem;">App Store</div>
+            </div>
+          </a>
+          <a href="#" class="bg-white text-dark px-3 py-1 rounded d-flex align-items-center small">
+            <i class="fab fa-google-play fa-lg me-2"></i>
+            <div>
+              <div style="font-size:0.6rem;">GET IT ON</div>
+              <div class="fw-semibold" style="font-size:0.8rem;">Google Play</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <hr class="border-secondary mt-4 mb-3">
+
+    <!-- ROW 3: bottom bar -->
+    <div class="row align-items-center gy-3">
+      <div class="col-md-4">
+        <span class="small text-secondary">
+          © 2025 examplehp.com. All rights reserved.
+        </span>
+      </div>
+      <div class="col-md-4 text-md-center">
+        <a href="#" class="small text-secondary text-decoration-none me-2">Terms &amp; Conditions</a>
+        <span class="text-secondary">•</span>
+        <a href="#" class="small text-secondary text-decoration-none ms-2">Privacy Notice</a>
+      </div>
+      <div class="col-md-4 text-md-end">
+        <a href="#top"
+           class="d-inline-flex align-items-center justify-content-center rounded-circle"
+           style="width:34px;height:34px;background:#16a34a;color:#fff;">
+          <i class="fa-solid fa-arrow-up"></i>
+        </a>
+      </div>
+    </div>
+
+  </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    // Navbar scroll effect
-    window.addEventListener('scroll', function() {
-        const navbar = document.querySelector('.navbar');
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
-
-    // Smooth scrolling for nav links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-
-    // Search form date default to tomorrow
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    document.querySelector('input[type="date"]').valueAsDate = tomorrow;
-</script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
