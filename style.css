@@ -1,3 +1,9 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+   
+}
 .banner {
     background-image: url("images/Group 22 (1).png");
     background-repeat: no-repeat;
@@ -9,7 +15,7 @@
     padding-top: 120px;  
     position: relative;
 }
-.contaiiner {
+.container {
     max-width: 1200px; 
     width: 100%;
     margin: 0 auto; 
@@ -25,9 +31,7 @@
   color: black !important;              /* Hover text black */
   transition: background-color 0.3s ease, color 0.3s ease;
 }
-nav{
-    z-index: 1000;
-}
+
 .vehicles-section {
       padding: 80px 0;
       background-color: #ffffff;
@@ -299,4 +303,62 @@ nav{
       background-color: #16a34a;
       color: #0b1120;
     }
+    /* my css */
+    .banner-lower{
+      margin-top:220px;
+      padding: 18px 0px;
+    }
+    .banner-lower  {
+   backdrop-filter: blur(10px);
+    }
+    .row{
+      display: flex;
+      flex-wrap:wrap;
+      margin: 0 -15px;
+    }
+    .col33{
+      flex: 0 0 33.3333%;
+      max-width: 33.3333%;
+      padding: 0 15px;
+    }
+    .card:nth-child(1){
+      background-image:url("images/card.png");
+      background-repeat:no-repeat;
+      min-height: 575px;
+      background-size:cover;
+      background-position: center;
+      border-radius:30px;
+      padding-top:374px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+.col33:nth-child(2) .card {
+  background-image: url("images/card (1).png");
+  /* other styles */
+}
+.col33:nth-child(3) .card {
+  background-image: url("images/card (2).png");
+  /* other styles */
+}
     
+.crd-btm {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  /* background and padding as needed */
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(1px);
+  color: white;
+  padding: 10px;
+}
+
+.card:hover{
+  box-shadow: 0px 0px 10px 5px black;
+}
+.card:hover .crd-btm {
+  opacity: 1;
+  transform: translateY(0); /* Optional slide-up effect */
+}
