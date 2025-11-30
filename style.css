@@ -36,7 +36,11 @@
     padding: 18px 0;
     backdrop-filter: blur(10px);
 }
-
+.account-btn:hover{
+  background-color: green !important ;
+  color:white !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
 .custom-hover:hover {
     background-color: white !important;
     color: black !important;
@@ -53,6 +57,7 @@
     transition: all 0.3s ease;
     position: relative;
 }
+
 .navlist .nav-item:hover  .nav-link{
   color:#16a34a !important;
 }
@@ -302,5 +307,10 @@ footer .glow:hover {
 @media(max-width: 1100px) {
     .vehicles-section > .container > .row {
         flex-direction: column;
+    }
+}
+@media(max-width: 1020px) {
+    .black-car{
+        display: none;
     }
 }
